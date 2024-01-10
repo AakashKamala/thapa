@@ -53,7 +53,7 @@ const Login = () => {
                       name="email"
                       placeholder="email"
                       id="email"
-                      phone
+                      required
                       autoComplete="off"
                       value={user.email}
                       onChange={handleInput}
