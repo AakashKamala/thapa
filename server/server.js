@@ -7,7 +7,7 @@ const connectDb=require("./utils/db");
 
 app.use(express.json());
 
-app.use('/',router);
+app.use('/api/auth',router);
 
 
 const PORT=5050;
