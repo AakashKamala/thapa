@@ -23,6 +23,6 @@ const userSchema=new mongoose.Schema({
     }
 });
 
-const User=new mongoose.model("countries",userSchema);
+const User=new mongoose.model("student",userSchema);
 
 module.exports=User;
