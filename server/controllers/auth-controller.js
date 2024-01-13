@@ -33,4 +33,30 @@ const register=async (req,res)=>{
     }
 }
 
-module.exports={home,register};
+const login=async(req,res)=>{
+    try {
+
+        const {email, password}=req.body;
+
+        const userExist=await User.findOne({email});
+
+        if(!userExist)
+        {
+            res.send("invalid credentials");
+        }
+        else{
+            if(userExist.password==password)
+            {
+                res.send("you have successfully logged in");
+            }
+            else{
+                res.send("invalid email or password");
+            }
+        }
+    } catch (error) {
+        res.send("internal server error");
+        console.log(error);
+    }
+}
+
+module.exports={home,register,login};
