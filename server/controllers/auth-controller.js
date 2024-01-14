@@ -12,6 +12,7 @@ const home= async (req,res)=>{
 
 const register=async (req,res)=>{
     try {
+        // res.status(200).send("hello, I'm alive");
         console.log(req.body);
         const {username, email, phone,password}=req.body;
 
