@@ -1,7 +1,10 @@
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 
 const Login = () => {
+
+  const navigate=useNavigate();
 
   const [user,setUser]=useState(
     {
@@ -20,9 +23,30 @@ const Login = () => {
     })
   }
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault();
     console.log(user);
+
+    try {
+        const response=await fetch(`https://qzld1j3b-5050.inc1.devtunnels.ms/api/auth/login`,{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+        },
+        body: JSON.stringify(user),
+      })
+
+      if(response.ok)
+      {
+        setUser({email:"", password:""});
+        navigate("../");
+      }
+
+      console.log(response);
+    } catch (error) {
+      console.log("login ",error);
+    }
+
   }
 
 
