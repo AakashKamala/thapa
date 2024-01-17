@@ -1,4 +1,5 @@
  const User=require("../models/user-model");
+ const bcrypt=require("bcryptjs");
 
 const home= async (req,res)=>{
     try {
@@ -18,7 +19,7 @@ const register=async (req,res)=>{
             return res.status(400).json({message:"email already exist"});
         }
         const userCreated=await User.create({username, email, phone,password});
-        res.status(201).json({message:userCreated});  
+        res.status(201).json({message:"registration successful", token: await userCreated.generateToken(), userId: userCreated._id.toString(),});  
     } 
     catch (error) {
         res.status(400).send("oops! error");
@@ -34,8 +35,16 @@ const login = async (req, res) => {
         if (!userExist) {
             return res.status(400).json({ error: "Invalid credentials", message: "Email doesn't exist" });
         }
-        if (userExist.password === password) {
-            return res.status(200).json({ success: true, message: "Password matched. Login successful." });
+        
+        const user=await userExist.comparePassword(password);
+
+        if (user) {
+            return res.status(200).json({
+                success: true,
+                message: "Password matched. Login successful.",
+                token: await userExist.generateToken(),
+                userId: userExist._id.toString() 
+            });
         } else {
             return res.status(400).json({ error: "Invalid credentials", message: "Password doesn't match" });
         }
