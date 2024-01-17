@@ -1,9 +1,9 @@
- const User=require("../models/user-model")
+ const User=require("../models/user-model");
 
 
 const home= async (req,res)=>{
     try {
-        //res.status(200).send("welcome to the home page through router oops");
+        res.status(200).send("welcome to the home page through router oops");
         console.log("hiii");
     } catch (error) {
         res.send("oops! error");
@@ -24,11 +24,12 @@ const register=async (req,res)=>{
             return res.status(400).json({message:"email already exist"});
         }
 
-        await User.create({username, email, phone,password});
+        const userCreated=await User.create({username, email, phone,password});
 
         
 
-        res.status(200).send({message:req.body});
+        res.status(201).json({message:userCreated});
+        
     } catch (error) {
         res.status(400).send("oops! error");
         console.log(error);  
