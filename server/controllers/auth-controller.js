@@ -22,8 +22,9 @@ const register=async (req,res)=>{
         res.status(201).json({message:"registration successful", token: await userCreated.generateToken(), userId: userCreated._id.toString(),});  
     } 
     catch (error) {
-        res.status(400).send("oops! error");
-        console.log("register: ", error);  
+        // res.status(400).send("oops! error");
+        // console.log("register: ", error);  
+        next(error);
     }
 }
 

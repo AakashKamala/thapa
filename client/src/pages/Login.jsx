@@ -28,7 +28,7 @@ const Login = () => {
     console.log(user);
 
     try {
-        const response=await fetch(`https://qzld1j3b-5050.inc1.devtunnels.ms/api/auth/login`,{
+        const response=await fetch(`http://localhost:5050/api/auth/login`,{
         method:"POST",
         headers:{
           "Content-Type":"application/json",
@@ -40,6 +40,10 @@ const Login = () => {
       {
         setUser({email:"", password:""});
         navigate("../");
+      }
+      else{
+        alert("Invalid credentials");
+        console.log("Invalid credentials");
       }
 
       console.log(response);

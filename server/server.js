@@ -1,10 +1,13 @@
-const router= require("./router/auth-router");
+const authRoute= require("./router/auth-router");
+const contactRoute=require("./router/contact-router");
 
 const express=require("express");
 const cors=require("cors");
 const app=express();
 
 const connectDb=require("./utils/db");
+
+const errorMiddleware=require("./middlewares/error-middleware");
 
 
 const corsOptions={
@@ -17,7 +20,10 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
-app.use('/api/auth',router);
+app.use('/api/auth',authRoute);
+app.use('/api/form',contactRoute);
+
+app.use(errorMiddleware);
 
 
 const PORT=5050;
