@@ -1,6 +1,6 @@
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
-
+import {useAuth} from "../store/auth";
 
 
 
@@ -17,6 +17,10 @@ const Register = () => {
     }
   )
 
+
+    const {storeTokenInLS}=useAuth();
+
+
   const handleInput=(e)=>{
     let name=e.target.name;
     let value=e.target.value;
@@ -32,9 +36,7 @@ const Register = () => {
     console.log(user);
 
     try {
-      // const response=await fetch(`http://localhost:5050/api/auth/register`,{
-        // const response=await fetch(`http://192.168.56.228:5050/api/auth/register`,{
-          const response=await fetch(`https://qzld1j3b-5050.inc1.devtunnels.ms/api/auth/register`,{
+      const response=await fetch(`http://localhost:5050/api/auth/register`,{
         method:"POST",
         headers:{
           "Content-Type":"application/json",
@@ -44,8 +46,11 @@ const Register = () => {
 
       if(response.ok)
       {
+        const res_data=await response.json();
+        console.log("res from server",res_data);
+        storeTokenInLS(res_data.token);
         setUser({username:"", email:"", phone:"", password:""});
-        navigate("/login");
+        navigate("/");
       }
 
       console.log(response);
