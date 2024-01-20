@@ -8,6 +8,7 @@ const About = () => {
       <div>About</div>
       <h1>Hi, 
         {user?`${user.username}`:"anon"}
+        welcome to this site
       </h1>
     </>
   )
