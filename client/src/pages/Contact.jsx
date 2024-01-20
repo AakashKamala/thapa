@@ -1,28 +1,44 @@
 import { useState } from "react";
+import { useAuth } from "../store/auth";
 
 const Contact = () => {
 
-  const [user,setUser]=useState({
+  const [contact,setContact]=useState({
     username:"",
     email:"",
     message:"",
   })
 
+  const [userData,setUserData]=useState(true);
+
+  const {user}=useAuth();
+
+  if(userData&&user){
+    setContact({
+      username:user.username,
+      email:user.email,
+      message:"",
+    });
+
+    setUserData(false);
+  }
+
+
   const handleInput=(e)=>{
     let name=e.target.name;
     let value=e.target.value;
 
-    setUser(
+    setContact(
       {
-        ...user,
+        ...contact,
         [name]:value,
       }
     )
   }
 
   const handleSubmit=(e)=>{
-    e.preventDefault();;
-    console.log(user);
+    e.preventDefault();
+    console.log(contact);
   }
 
 
@@ -55,7 +71,7 @@ const Contact = () => {
                       id="username"
                       required
                       autoComplete="off"
-                      value={user.username}
+                      value={contact.username}
                       onChange={handleInput}
                     />
                   </div>
@@ -69,7 +85,7 @@ const Contact = () => {
                       id="email"
                       required
                       autoComplete="off"
-                      value={user.email}
+                      value={contact.email}
                       onChange={handleInput}
                     />
                   </div>
@@ -83,7 +99,7 @@ const Contact = () => {
                       id="message"
                       required
                       autoComplete="off"
-                      value={user.message}
+                      value={contact.message}
                       onChange={handleInput}
                     />
                   </div>

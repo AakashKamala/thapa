@@ -8,7 +8,7 @@ import Contact from "./pages/Contact"
 import Service from "./pages/Service"
 import Register from "./pages/Register"
 import Login from "./pages/Login"
-import {Logout} from "./pages/logout";
+import Logout from "./pages/logout";
 import Error from "./pages/Error"
 
 //components
